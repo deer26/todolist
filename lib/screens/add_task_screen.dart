@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/models/task_data.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddTaskScreen extends StatelessWidget {
   @override
@@ -8,11 +9,9 @@ class AddTaskScreen extends StatelessWidget {
     String newTaskTitle;
 
     return Container(
-      color: Color(0xff757575),
       child: Container(
         padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
@@ -22,12 +21,11 @@ class AddTaskScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'Yeni Görev',
+              'newtask'.tr().toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.w700,
-                color: Colors.teal,
               ),
             ),
             TextField(
@@ -39,12 +37,9 @@ class AddTaskScreen extends StatelessWidget {
             ),
             FlatButton(
               child: Text(
-                'Ekle',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+                'add'.tr().toString(),
+                style: TextStyle(),
               ),
-              color: Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
@@ -54,8 +49,11 @@ class AddTaskScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Provider.of<TaskData>(context, listen: false)
-                    .addTask(newTaskTitle);
+                if (newTaskTitle != null && newTaskTitle != "") {
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskTitle);
+                }
+
                 Navigator.pop(context);
               },
             ),
